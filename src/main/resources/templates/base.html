@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html 
+class="dark"
+lang="en"
+th:fragment="parent(content, title, script)"
+xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Dynamic Title -->
+    <title data-th-replace="${title}">SCM</title>
+    
+    <link rel="stylesheet" th:href="@{'/css/output.css'}" />
+    <link rel="stylesheet" data-th-href="@{'/css/style.css'}" />
+    <!-- Tailwind CDN -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+    <!-- Flowbite CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" 
+    />
+    <!--font awesome-->
+    <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" 
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" 
+    />
+</head>
+<body class="dark:bg-gray-900 dark:text-white">
+
+    <!-- Layout Wrapper -->
+    <div class="min-h-screen flex flex-col">
+
+       
+        
+        <!--If user is logged in : Navbar -->
+
+        <div th:if="${loggedInUser}">
+            <div data-th-replace="~{user/user_navbar::user-navbar}"></div>
+        </div>
+
+        
+
+        <!--If user is not logged in : Navbar -->
+        <div th:unless="${loggedInUser}">
+            <div data-th-replace="~{navbar :: navbar}"></div>
+        </div>
+
+       <!-- <div data-th-replace="~{navbar :: navbar}"></div> --> 
+
+        <!-- Main Content -->
+        <main class="flex-grow flex justify-center items-start pt-20">
+
+            <!-- Center Container -->
+            <div class="w-full max-w-4xl px-6">
+
+                <!-- Dynamic Content -->
+                <section data-th-replace="${content}"></section>
+
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="p-4 text-center border-t border-gray-700">
+            Footer: Learn code with Abulaish
+        </footer>
+
+    </div>
+
+    <!-- Flowbite JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script data-th-src="@{'/js/script.js'}"></script>
+
+    <!-- Page Specific Script -->
+    <th:block data-th-replace="${script}"></th:block>
+
+</body>
+</html>
